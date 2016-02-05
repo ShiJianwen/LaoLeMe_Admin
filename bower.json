@@ -1,0 +1,22 @@
+{
+  "name": "LaoLeMe_FE",
+  "authors": [
+    "ShiJianwen <shijianwen95@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "amazeui": "^2.5.2"
+  }
+}
