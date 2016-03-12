@@ -73,6 +73,15 @@
 
 <script>
 	module.exports = {
+		data: function() {
+			return {
+				phone: '',
+				password: '',
+				realname: '',
+				sex: '',
+				addr: ''
+			};
+		},
 		methods: {
 			addNewUser: function() {
 				if(this.phone&&this.password&&this.realname&&this.sex&&this.addr) {

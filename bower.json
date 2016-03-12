@@ -17,6 +17,8 @@
     "tests"
   ],
   "dependencies": {
-    "amazeui": "^2.5.2"
+    "amazeui": "^2.5.2",
+    "jquery-autocomplete": "^1.1.1",
+    "jquery": "^2.2.0"
   }
 }

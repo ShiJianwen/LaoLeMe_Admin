@@ -5,7 +5,7 @@
 			<div class="am-offcanvas-bar admin-offcanvas-bar">
 				<ul class="am-list admin-sidebar-list">
 					<li>
-						<a href="admin-index.html">
+						<a v-link="{path: '/'}">
 							<span class="am-icon-home"></span>
 							首页
 						</a>

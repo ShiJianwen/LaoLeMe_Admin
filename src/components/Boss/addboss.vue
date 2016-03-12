@@ -78,6 +78,16 @@
 
 <script>
 	module.exports = {
+		data: function() {
+			return {
+				phone: '',
+				password: '',
+				realname: '',
+				sex: '',
+				idcard: '',
+				addr: ''
+			};
+		},
 		methods: {
 			addNewBoss: function() {
 				var data = {

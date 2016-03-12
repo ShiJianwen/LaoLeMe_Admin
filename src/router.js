@@ -29,7 +29,8 @@ module.exports = function(router) {
 					name: 'restaurant',
 					component: reslist
 				},
-				'/addrestaurant': {
+				'/addrestaurant/:bossId': {
+					name: 'addrestaurant',
 					component: addres
 				}
 			}

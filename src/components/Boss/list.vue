@@ -34,14 +34,14 @@
 			</div>
 			<div class="am-u-sm-12 am-u-md-3">
 				<div class="am-form-group">
-					<select data-am-selected="{btnSize: 'sm'}">
-						<option value="option1">所有类别</option>
-						<option value="option2">IT业界</option>
-						<option value="option3">数码产品</option>
-						<option value="option3">笔记本电脑</option>
+					<select v-model="sort_type" @change="refreshPage">
+						<option value=" " selected="true">所有类别</option>
+						<option value="1" >已开店</option>
+						<option value="2" >未开店</option>
+						<!-- <option value="option3">笔记本电脑</option>
 						<option value="option3">平板电脑</option>
 						<option value="option3">只能手机</option>
-						<option value="option3">超极本</option>
+						<option value="option3">超极本</option> -->
 					</select>
 				</div>
 			</div>
@@ -93,9 +93,13 @@
 												<span class="am-icon-pencil-square-o"></span>
 												编辑
 											</button>
-											<button class="am-btn am-btn-default am-btn-xs am-hide-sm-only">
+											<button class="am-btn am-btn-default am-btn-xs am-hide-sm-only" v-if="sort_type==='1'">
 												<span class="am-icon-copy"></span>
-												复制
+												进入店铺
+											</button>
+											<button class="am-btn am-btn-default am-btn-xs am-hide-sm-only" v-if="sort_type==='2'" v-link="{name: 'addrestaurant', params: {bossId: user.id}}">
+												<span class="am-icon-copy"></span>
+												开店
 											</button>
 											<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" @click="deleteBoss(user.id)">
 												<span class="am-icon-trash-o"></span>
@@ -136,12 +140,14 @@
 			return {
 				bosses: [],
 				pagenum: 1,
-				perpage: 10
+				perpage: 10,
+				sort_type: ''
 			};
 		},
 		ready: function() {
 			var data = {
-				offset: 0
+				offset: 0,
+				isBoss: this.sort_type
 			};
 			this.$http.get('boss', data).then(function(res) {
 				this.bosses = res.data.result;
@@ -149,9 +155,20 @@
 			}, function(err) {});
 		},
 		methods: {
+			refreshPage: function() {
+				var data = {
+					offset: 0,
+					isBoss: this.sort_type
+				};
+				this.$http.get('boss', data).then(function(res) {
+					this.bosses = res.data.result;
+					console.log(res.data);
+				}, function(err) {});
+			},
 			loadNextPage: function() {
 				var data = {
-					offset: this.pagenum*this.perpage
+					offset: this.pagenum*this.perpage,
+					isBoss: this.sort_type
 				};
 				this.$http.get('boss', data).then(function(res) {
 					this.bosses = res.data.result;
@@ -160,7 +177,8 @@
 			},
 			loadPrevPage: function() {
 				var data = {
-					offset: (this.pagenum-2).this.perpage
+					offset: (this.pagenum-2).this.perpage,
+					isBoss: this.sort_type
 				};
 				this.$http.get('boss', data).then(function(res) {
 					this.bosses = res.data.result;
