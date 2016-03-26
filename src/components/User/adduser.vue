@@ -97,7 +97,14 @@
 						this.$route.router.go({
 							name: 'users'
 						});
-					}, function() {});
+					}, function(err) {
+						if(err.status === 401) {
+							alert('请先登录');
+							this.$route.router.go({
+								path: '/login'
+							});
+						}
+					});
 				} else {
 					alert('字段不能为空');
 				}

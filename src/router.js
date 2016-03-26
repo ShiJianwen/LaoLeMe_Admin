@@ -1,4 +1,5 @@
 var index = require('./components/Index/index.vue');
+var login = require('./components/Index/login.vue');
 var userlist = require('./components/User/list.vue');
 var adduser = require('./components/User/adduser.vue');
 var bosslist = require('./components/Boss/list.vue');
@@ -11,6 +12,10 @@ module.exports = function(router) {
 			name: '首页',
 			component: index,
 			subRoutes: {
+				'/login': {
+					name: 'login',
+					component: login
+				},
 				'/user': {
 					name: 'users',
 					component: userlist
@@ -36,4 +41,10 @@ module.exports = function(router) {
 			}
 		}
 	});
+
+	// router.beforeEach(function(transition) {
+	// 	if(!sessionStorage.user && transition.to.path!='/login') {
+	// 		router.go({path: '/login'});
+	// 	}
+	// });
 };

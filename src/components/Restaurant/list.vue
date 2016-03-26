@@ -143,7 +143,12 @@
 				console.log(res.data);
 				this.restaurants = res.data.result;
 			}, function(err) {
-				alert(err);
+				if(err.status === 401) {
+					alert('请先登录');
+					this.$route.router.go({
+						path: '/login'
+					});
+				}
 			});
 		},
 		methods: {

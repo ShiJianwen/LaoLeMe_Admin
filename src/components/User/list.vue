@@ -144,7 +144,14 @@
 			this.$http.get('user', data).then(function(res) {
 				console.log(res);
 				this.users = res.data.result;
-			}, function(err) {});
+			}, function(err) {
+				if(err.status === 401) {
+					alert('请先登录');
+					this.$route.router.go({
+						path: '/login'
+					});
+				}
+			});
 		},
 		methods: {
 			loadNextPage: function() {

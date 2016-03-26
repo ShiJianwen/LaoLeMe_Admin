@@ -152,7 +152,14 @@
 			this.$http.get('boss', data).then(function(res) {
 				this.bosses = res.data.result;
 				console.log(res.data);
-			}, function(err) {});
+			}, function(err) {
+				if(err.status === 401) {
+					alert('请先登录');
+					this.$route.router.go({
+						path: '/login'
+					});
+				}
+			});
 		},
 		methods: {
 			refreshPage: function() {

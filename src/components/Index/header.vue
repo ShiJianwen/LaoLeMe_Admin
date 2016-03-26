@@ -12,33 +12,26 @@
 		<div class="am-collapse am-topbar-collapse" id="topbar-collapse">
 
 			<ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-				<li>
+				<!-- <li>
 					<a href="javascript:;">
 						<span class="am-icon-envelope-o"></span>
 						收件箱
 						<span class="am-badge am-badge-warning">5</span>
 					</a>
+				</li> -->
+				<li v-if="!user" v-link="{path: '/login'}">
+					<a href="javascript:;">
+						登录
+					</a>
 				</li>
-				<li class="am-dropdown" data-am-dropdown>
+				<li class="am-dropdown" data-am-dropdown v-if="user">
 					<a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
 						<span class="am-icon-users"></span>
-						管理员
+						{{user}}
 						<span class="am-icon-caret-down"></span>
 					</a>
 					<ul class="am-dropdown-content">
-						<li>
-							<a href="#">
-								<span class="am-icon-user"></span>
-								资料
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<span class="am-icon-cog"></span>
-								设置
-							</a>
-						</li>
-						<li>
+						<li @click="doLogout">
 							<a href="#">
 								<span class="am-icon-power-off"></span>
 								退出
@@ -50,3 +43,33 @@
 		</div>
 	</header>
 </template>
+<script>
+	module.exports = {
+		data: function() {
+			return {
+				user: sessionStorage.user
+			};
+		},
+		ready: function() {
+			
+
+		},
+		methods: {
+			doLogout: function() {
+				this.$http.get('logout').then(function(res) {
+					sessionStorage.removeItem('user');
+					this.$dispatch('doLogout');
+					this.user = null;
+				}, function(err) {
+					console.log(err);
+				});
+			}
+		},
+		events: {
+			'loggedin': function() {
+				console.log('header');
+				this.user = sessionStorage.user;
+			}
+		}
+	};
+</script>
